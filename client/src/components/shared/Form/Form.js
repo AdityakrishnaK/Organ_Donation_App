@@ -13,31 +13,58 @@ const Form = ({ formType, submitBtn, formTitle }) => {
   const [website, setWebsite] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+
+  const formStyle = {
+    backgroundColor: "#f8d7da", // Soft red background
+    padding: "30px",
+    borderRadius: "10px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    maxWidth: "600px",
+    margin: "auto",
+  };
+  
+  const buttonStyle = {
+    backgroundColor: "#dc3545", // Primary red for submit button
+    border: "none",
+    padding: "10px 20px",
+    borderRadius: "5px",
+    color: "#fff", // White text for contrast
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+  };
+  
+  const labelStyle = {
+    color: "#343a40", // Dark gray for label text
+  };
+  
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (formType === "login") {
+      return handleLogin(e, email, password, role);
+    } else if (formType === "register") {
+      return handleRegister(
+        e,
+        name,
+        role,
+        email,
+        password,
+        phone,
+        organisationName,
+        address,
+        hospitalName,
+        website
+      );
+    }
+  };
+
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          if (formType === "login")
-            return handleLogin(e, email, password, role);
-          else if (formType === "register")
-            return handleRegister(
-              e,
-              name,
-              role,
-              email,
-              password,
-              phone,
-              organisationName,
-              address,
-              hospitalName,
-              website
-            );
-        }}
-      >
+    <div style={formStyle}>
+      <form onSubmit={handleFormSubmit}>
         <h1 className="text-center">{formTitle}</h1>
         <hr />
-        <div className="d-flex mb-3">
-          <div className="form-check">
+        <div className="d-flex mb-4 justify-content-center">
+          <div className="form-check me-3">
             <input
               type="radio"
               className="form-check-input"
@@ -47,11 +74,11 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               onChange={(e) => setRole(e.target.value)}
               defaultChecked
             />
-            <label htmlFor="adminRadio" className="form-check-label">
-              Donar
+            <label htmlFor="donarRadio" className="form-check-label">
+              Donor
             </label>
           </div>
-          <div className="form-check ms-2">
+          <div className="form-check me-3">
             <input
               type="radio"
               className="form-check-input"
@@ -64,7 +91,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               Admin
             </label>
           </div>
-          <div className="form-check ms-2">
+          <div className="form-check me-3">
             <input
               type="radio"
               className="form-check-input"
@@ -77,7 +104,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               Hospital
             </label>
           </div>
-          <div className="form-check ms-2">
+          <div className="form-check">
             <input
               type="radio"
               className="form-check-input"
@@ -91,15 +118,14 @@ const Form = ({ formType, submitBtn, formTitle }) => {
             </label>
           </div>
         </div>
-        {/* switch statement */}
+
         {(() => {
-          //eslint-disable-next-line
-          switch (true) {
-            case formType === "login": {
+          switch (formType) {
+            case "login":
               return (
                 <>
                   <InputType
-                    labelText={"email"}
+                    labelText={"Email"}
                     labelFor={"forEmail"}
                     inputType={"email"}
                     name={"email"}
@@ -116,8 +142,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                   />
                 </>
               );
-            }
-            case formType === "register": {
+            case "register":
               return (
                 <>
                   {(role === "admin" || role === "donar") && (
@@ -152,7 +177,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                   )}
 
                   <InputType
-                    labelText={"email"}
+                    labelText={"Email"}
                     labelFor={"forEmail"}
                     inputType={"email"}
                     name={"email"}
@@ -168,7 +193,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <InputType
-                    labelText={"website"}
+                    labelText={"Website"}
                     labelFor={"forWebsite"}
                     inputType={"text"}
                     name={"website"}
@@ -193,23 +218,28 @@ const Form = ({ formType, submitBtn, formTitle }) => {
                   />
                 </>
               );
-            }
+            default:
+              return null;
           }
         })()}
 
-        <div className="d-flex flex-row justify-content-between">
+        <div className="d-flex flex-row justify-content-between align-items-center mt-4">
           {formType === "login" ? (
             <p>
-              Not registerd yet ? Register
-              <Link to="/register"> Here !</Link>
+              Not registered yet? Register
+              <Link to="/register"> here!</Link>
             </p>
           ) : (
             <p>
-              ALready Usser Please
-              <Link to="/login"> Login !</Link>
+              Already a user? Please
+              <Link to="/login"> login!</Link>
             </p>
           )}
-          <button className="btn btn-primary" type="submit">
+          <button
+            className="btn btn-primary"
+            type="submit"
+            style={buttonStyle}
+          >
             {submitBtn}
           </button>
         </div>
