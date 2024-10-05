@@ -16,7 +16,6 @@ import DonarList from "./pages/Admin/DonarList";
 import HospitalList from "./pages/Admin/HospitalList";
 import OrgList from "./pages/Admin/OrgList";
 import AdminHome from "./pages/Admin/AdminHome";
-import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <>
@@ -25,17 +24,17 @@ function App() {
         <Route
           path="/admin"
           element={
-            //<ProtectedRoute>
+            <ProtectedRoute>
               <AdminHome />
-            //</ProtectedRoute>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/donar-list"
           element={
-          //  <ProtectedRoute>
+            <ProtectedRoute>
               <DonarList />
-           //</ProtectedRoute>
+            </ProtectedRoute>
           }
         />
         <Route

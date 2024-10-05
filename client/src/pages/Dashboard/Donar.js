@@ -5,13 +5,13 @@ import moment from "moment";
 
 const Donar = () => {
   const [data, setData] = useState([]);
-  //find donar records
-  const getDonars = async () => {
+
+  // Find organ donor records
+  const getDonors = async () => {
     try {
-      const { data } = await API.get("/inventory/get-donars");
-      //   console.log(data);
+      const { data } = await API.get("/inventory/get-donors"); // Update the API endpoint to reflect organ donors if needed
       if (data?.success) {
-        setData(data?.donars);
+        setData(data?.donors);  // Make sure the data structure matches organ donors
       }
     } catch (error) {
       console.log(error);
@@ -19,12 +19,12 @@ const Donar = () => {
   };
 
   useEffect(() => {
-    getDonars();
+    getDonors();
   }, []);
 
   return (
     <Layout>
-      <table className="table ">
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">Name</th>

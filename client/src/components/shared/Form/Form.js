@@ -14,63 +14,38 @@ const Form = ({ formType, submitBtn, formTitle }) => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
-  const formStyle = {
-    backgroundColor: "#f8d7da", // Soft red background
-    padding: "30px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    maxWidth: "600px",
-    margin: "auto",
-  };
-  
-  const buttonStyle = {
-    backgroundColor: "#dc3545", // Primary red for submit button
-    border: "none",
-    padding: "10px 20px",
-    borderRadius: "5px",
-    color: "#fff", // White text for contrast
-    cursor: "pointer",
-    transition: "background-color 0.3s",
-  };
-  
-  const labelStyle = {
-    color: "#343a40", // Dark gray for label text
-  };
-  
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (formType === "login") {
-      return handleLogin(e, email, password, role);
-    } else if (formType === "register") {
-      return handleRegister(
-        e,
-        name,
-        role,
-        email,
-        password,
-        phone,
-        organisationName,
-        address,
-        hospitalName,
-        website
-      );
-    }
-  };
-
   return (
-    <div style={formStyle}>
-      <form onSubmit={handleFormSubmit}>
-        <h1 className="text-center">{formTitle}</h1>
+    <div className="form-container soft-red-background shadow-lg p-4 rounded">
+      <form
+        onSubmit={(e) => {
+          if (formType === "login")
+            return handleLogin(e, email, password, role);
+          else if (formType === "register")
+            return handleRegister(
+              e,
+              name,
+              role,
+              email,
+              password,
+              phone,
+              organisationName,
+              address,
+              hospitalName,
+              website
+            );
+        }}
+      >
+        <h2 className="text-center mb-4">{formTitle}</h2>
         <hr />
-        <div className="d-flex mb-4 justify-content-center">
+
+        <div className="role-selection mb-4 d-flex justify-content-center">
           <div className="form-check me-3">
             <input
               type="radio"
               className="form-check-input"
               name="role"
               id="donarRadio"
-              value={"donar"}
+              value="donar"
               onChange={(e) => setRole(e.target.value)}
               defaultChecked
             />
@@ -84,7 +59,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               className="form-check-input"
               name="role"
               id="adminRadio"
-              value={"admin"}
+              value="admin"
               onChange={(e) => setRole(e.target.value)}
             />
             <label htmlFor="adminRadio" className="form-check-label">
@@ -97,7 +72,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               className="form-check-input"
               name="role"
               id="hospitalRadio"
-              value={"hospital"}
+              value="hospital"
               onChange={(e) => setRole(e.target.value)}
             />
             <label htmlFor="hospitalRadio" className="form-check-label">
@@ -110,7 +85,7 @@ const Form = ({ formType, submitBtn, formTitle }) => {
               className="form-check-input"
               name="role"
               id="organisationRadio"
-              value={"organisation"}
+              value="organisation"
               onChange={(e) => setRole(e.target.value)}
             />
             <label htmlFor="organisationRadio" className="form-check-label">
@@ -119,127 +94,112 @@ const Form = ({ formType, submitBtn, formTitle }) => {
           </div>
         </div>
 
-        {(() => {
-          switch (formType) {
-            case "login":
-              return (
-                <>
-                  <InputType
-                    labelText={"Email"}
-                    labelFor={"forEmail"}
-                    inputType={"email"}
-                    name={"email"}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <InputType
-                    labelText={"Password"}
-                    labelFor={"forPassword"}
-                    inputType={"password"}
-                    name={"password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </>
-              );
-            case "register":
-              return (
-                <>
-                  {(role === "admin" || role === "donar") && (
-                    <InputType
-                      labelText={"Name"}
-                      labelFor={"forName"}
-                      inputType={"text"}
-                      name={"name"}
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  )}
-                  {role === "organisation" && (
-                    <InputType
-                      labelText={"Organisation Name"}
-                      labelFor={"fororganisationName"}
-                      inputType={"text"}
-                      name={"organisationName"}
-                      value={organisationName}
-                      onChange={(e) => setOrganisationName(e.target.value)}
-                    />
-                  )}
-                  {role === "hospital" && (
-                    <InputType
-                      labelText={"Hospital Name"}
-                      labelFor={"forHospitalName"}
-                      inputType={"text"}
-                      name={"hospitalName"}
-                      value={hospitalName}
-                      onChange={(e) => setHospitalName(e.target.value)}
-                    />
-                  )}
+        {/* Input Fields based on formType */}
+        {formType === "login" ? (
+          <>
+            <InputType
+              labelText="Email"
+              labelFor="forEmail"
+              inputType="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <InputType
+              labelText="Password"
+              labelFor="forPassword"
+              inputType="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </>
+        ) : (
+          <>
+            {(role === "admin" || role === "donar") && (
+              <InputType
+                labelText="Name"
+                labelFor="forName"
+                inputType="text"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            )}
+            {role === "organisation" && (
+              <InputType
+                labelText="Organisation Name"
+                labelFor="forOrganisationName"
+                inputType="text"
+                name="organisationName"
+                value={organisationName}
+                onChange={(e) => setOrganisationName(e.target.value)}
+              />
+            )}
+            {role === "hospital" && (
+              <InputType
+                labelText="Hospital Name"
+                labelFor="forHospitalName"
+                inputType="text"
+                name="hospitalName"
+                value={hospitalName}
+                onChange={(e) => setHospitalName(e.target.value)}
+              />
+            )}
+            <InputType
+              labelText="Email"
+              labelFor="forEmail"
+              inputType="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <InputType
+              labelText="Password"
+              labelFor="forPassword"
+              inputType="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <InputType
+              labelText="Website"
+              labelFor="forWebsite"
+              inputType="text"
+              name="website"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+            <InputType
+              labelText="Address"
+              labelFor="forAddress"
+              inputType="text"
+              name="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+            <InputType
+              labelText="Phone"
+              labelFor="forPhone"
+              inputType="text"
+              name="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </>
+        )}
 
-                  <InputType
-                    labelText={"Email"}
-                    labelFor={"forEmail"}
-                    inputType={"email"}
-                    name={"email"}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <InputType
-                    labelText={"Password"}
-                    labelFor={"forPassword"}
-                    inputType={"password"}
-                    name={"password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <InputType
-                    labelText={"Website"}
-                    labelFor={"forWebsite"}
-                    inputType={"text"}
-                    name={"website"}
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                  />
-                  <InputType
-                    labelText={"Address"}
-                    labelFor={"forAddress"}
-                    inputType={"text"}
-                    name={"address"}
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                  <InputType
-                    labelText={"Phone"}
-                    labelFor={"forPhone"}
-                    inputType={"text"}
-                    name={"phone"}
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </>
-              );
-            default:
-              return null;
-          }
-        })()}
-
-        <div className="d-flex flex-row justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-between mt-4">
           {formType === "login" ? (
             <p>
-              Not registered yet? Register
-              <Link to="/register"> here!</Link>
+              Not registered yet? <Link to="/register">Register Here!</Link>
             </p>
           ) : (
             <p>
-              Already a user? Please
-              <Link to="/login"> login!</Link>
+              Already a user? <Link to="/login">Login Here!</Link>
             </p>
           )}
-          <button
-            className="btn btn-primary"
-            type="submit"
-            style={buttonStyle}
-          >
+          <button className="btn btn-primary" type="submit">
             {submitBtn}
           </button>
         </div>

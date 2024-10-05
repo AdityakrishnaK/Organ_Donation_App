@@ -1,0 +1,139 @@
+/* Container for the whole page */
+.org-list-container {
+    padding: 20px;
+    background-color: #f4f7fc; /* Light pastel blue background */
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Heading */
+  h2 {
+    text-align: center;
+    color: #34495e; /* Dark grey-blue */
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+  
+  /* Search input styling */
+  .search-input {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    width: 60%;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    outline: none;
+    font-size: 16px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+  }
+  
+  .search-input:focus {
+    border-color: #5a67d8; /* Focus border color */
+    box-shadow: 0 0 8px rgba(90, 103, 216, 0.4);
+  }
+  
+  /* Table Styles */
+  .org-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .org-table th,
+  .org-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .org-table th {
+    cursor: pointer;
+    background-color: #5a67d8; /* Vibrant purple-blue */
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  
+  .org-table tr:hover {
+    background-color: #f1f5f9; /* Light hover background */
+  }
+  
+  .org-table td {
+    color: #2d3748; /* Dark grey */
+    font-size: 15px;
+  }
+  
+  /* Button for deleting organizations */
+  .btn-delete {
+    background-color: #e74c3c; /* Red for delete button */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-delete:hover {
+    background-color: #c0392b; /* Darker red on hover */
+  }
+  
+  /* Spinner animation while loading data */
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #5a67d8; /* Use the same purple-blue color */
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 50px auto;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Pagination styles */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+  }
+  
+  .pagination button {
+    background-color: #5a67d8; /* Pagination button color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    display: flex;
+    align-items: center;
+    color: #34495e;
+    font-size: 16px;
+    font-weight: 500;
+  }

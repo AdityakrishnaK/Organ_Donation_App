@@ -5,24 +5,23 @@ import { useSelector } from "react-redux";
 import API from "../../services/API";
 
 const OrganisationPage = () => {
-  // get current user
+  // Get current user
   const { user } = useSelector((state) => state.auth);
   const [data, setData] = useState([]);
-  //find org records
+
+  // Fetch organization records
   const getOrg = async () => {
     try {
       if (user?.role === "donar") {
-        const { data } = await API.get("/inventory/get-orgnaisation");
-        //   console.log(data);
+        const { data } = await API.get("/inventory/get-organisations"); // Make sure this endpoint reflects organ donation organizations
         if (data?.success) {
           setData(data?.organisations);
         }
       }
       if (user?.role === "hospital") {
         const { data } = await API.get(
-          "/inventory/get-orgnaisation-for-hospital"
-        );
-        //   console.log(data);
+          "/inventory/get-organisations-for-hospital"
+        ); // Same here, ensure the endpoint is relevant
         if (data?.success) {
           setData(data?.organisations);
         }
@@ -38,14 +37,15 @@ const OrganisationPage = () => {
 
   return (
     <Layout>
-      <table className="table ">
+      <h1 className="text-center my-4">Organ Donation Organizations</h1> {/* Add a heading */}
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
             <th scope="col">Address</th>
-            <th scope="col">Date</th>
+            <th scope="col">Date Joined</th>
           </tr>
         </thead>
         <tbody>
